@@ -71,3 +71,44 @@ CREATE TABLE prescriptions (
     FOREIGN KEY (medication_id) REFERENCES medications(id)
 );
 
+
+
+
+
+INSERT INTO Person (id, email, first_name, last_name, username, password, role) VALUES
+(1, 'admin@hassan2.ma', 'Youssef', 'Alaoui', 'admin_youssef', 'hashed_pass_1', 'admin'),
+(2, 'meriem.bennani@hassan2.ma', 'Meriem', 'Bennani', 'dr_meriem', 'hashed_pass_2', 'doctor'),
+(3, 'amine.idrissi@hassan2.ma', 'Amine', 'Idrissi', 'dr_amine', 'hashed_pass_3', 'doctor'),
+(4, 'karima.tazi@email.com', 'Karima', 'Tazi', 'ktazi88', 'hashed_pass_4', 'patient'),
+(5, 'omar.haddad@email.com', 'Omar', 'Haddad', 'ohaddad92', 'hashed_pass_5', 'patient');
+
+INSERT INTO departments (name, location) VALUES
+('Cardiologie', 'Aile A, Casablanca'),
+('Pédiatrie', 'Aile C, Rabat'),
+('Neurologie', 'Bâtiment B, Marrakech');
+
+INSERT INTO doctors (id, department_id, specialty) VALUES
+(2, 1, 'Cardiologue Interventionnel'),
+(3, 3, 'Neurologue');
+
+INSERT INTO patients (id, date_of_birth, phone) VALUES
+(4, '1988-05-14', '0661234567'),
+(5, '1992-11-20', '0670987654');
+
+
+INSERT INTO medications (name, description) VALUES
+('Doliprane 1000mg', 'Paracétamol pour douleurs et fièvre'),
+('Amoxicilline', 'Antibiotique à large spectre'),
+('Spasfon', 'Traitement des douleurs spasmodiques');
+
+INSERT INTO appointments (appointment_date, appointment_time, doctor_id, patient_id, reason, status) VALUES
+('2024-01-15', '09:30:00', 2, 4, 'Consultation de routine pour hypertension', 'done'),
+('2024-02-10', '14:00:00', 3, 5, 'Migraines chroniques persistantes', 'scheduled');
+
+INSERT INTO prescriptions (doctor_id, patient_id, medication_id, dosage_instructions) VALUES
+(2, 4, 1, '1 comprimé 3 fois par jour après les repas pendant 5 jours'),
+(3, 5, 3, '2 comprimés en cas de crise, maximum 6 par jour');
+
+
+
+
