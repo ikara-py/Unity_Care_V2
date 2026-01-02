@@ -1,8 +1,8 @@
 CREATE DATABASE uccv2;
 USE uccv2;
 
--- Person
-CREATE TABLE Person (
+-- User
+CREATE TABLE User (
     id INT AUTO_INCREMENT PRIMARY KEY,
     email VARCHAR(255) NOT NULL UNIQUE,
     first_name VARCHAR(100),
@@ -25,7 +25,7 @@ CREATE TABLE doctors (
     id INT PRIMARY KEY,
     department_id INT NOT NULL,
     specialty VARCHAR(100),
-    FOREIGN KEY (id) REFERENCES Person(id) ON DELETE CASCADE,
+    FOREIGN KEY (id) REFERENCES User(id) ON DELETE CASCADE,
     FOREIGN KEY (department_id) REFERENCES departments(id)
 );
 
@@ -34,7 +34,7 @@ CREATE TABLE patients (
     id INT PRIMARY KEY,
     date_of_birth DATE,
     phone VARCHAR(20),
-    FOREIGN KEY (id) REFERENCES Person(id) ON DELETE CASCADE
+    FOREIGN KEY (id) REFERENCES User(id) ON DELETE CASCADE
 );
 
 -- Medications
@@ -75,7 +75,7 @@ CREATE TABLE prescriptions (
 
 
 
-INSERT INTO Person (id, email, first_name, last_name, username, password, role) VALUES
+INSERT INTO User (id, email, first_name, last_name, username, password, role) VALUES
 (1, 'admin@hassan2.ma', 'Youssef', 'Alaoui', 'admin_youssef', 'hashed_pass_1', 'admin'),
 (2, 'meriem.bennani@hassan2.ma', 'Meriem', 'Bennani', 'dr_meriem', 'hashed_pass_2', 'doctor'),
 (3, 'amine.idrissi@hassan2.ma', 'Amine', 'Idrissi', 'dr_amine', 'hashed_pass_3', 'doctor'),
