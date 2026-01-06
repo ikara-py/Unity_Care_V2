@@ -8,7 +8,6 @@ abstract class User {
     protected $password;
     protected $role;
     protected $created_at;
-
     public function __construct($data = []) {
         $this->id = $data['id'] ?? null;
         $this->email = $data['email'] ?? '';
@@ -19,7 +18,6 @@ abstract class User {
         $this->role = $data['role'] ?? '';
         $this->created_at = $data['created_at'] ?? null;
     }
-
     public function getId() { return $this->id; }
     public function getEmail() { return $this->email; }
     public function getFirstName() { return $this->first_name; }
@@ -28,7 +26,6 @@ abstract class User {
     public function getPassword() { return $this->password; }
     public function getRole() { return $this->role; }
     public function getCreatedAt() { return $this->created_at; }
-
     public function setId($id) { $this->id = $id; }
     public function setEmail($email) { $this->email = $email; }
     public function setFirstName($first_name) { $this->first_name = $first_name; }
@@ -37,12 +34,21 @@ abstract class User {
     public function setPassword($password) { $this->password = $password; }
     public function setRole($role) { $this->role = $role; }
     public function setCreatedAt($created_at) { $this->created_at = $created_at; }
-
     public function getFullName() {
         return $this->first_name . ' ' . $this->last_name;
     }
-
     public function isAdmin() { return $this->role === 'admin'; }
     public function isDoctor() { return $this->role === 'doctor'; }
     public function isPatient() { return $this->role === 'patient'; }
+    public function toArray() {
+        return [
+            'id' => $this->id,
+            'email' => $this->email,
+            'first_name' => $this->first_name,
+            'last_name' => $this->last_name,
+            'username' => $this->username,
+            'password' => $this->password,
+            'role' => $this->role,
+        ];
+    }
 }
