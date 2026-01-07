@@ -38,4 +38,13 @@ class DoctorRepository extends BaseRepository {
             $data['specialty']
         ]);
     }
+    public function edit($id, Doctor $doctor) {
+        $data = $doctor->toArray();
+        $stmt = $this->pdo->prepare("UPDATE doctors SET department_id = ?, specialty = ? WHERE id = ? ");
+        return $stmt->execute([
+            $data['department_id'],
+            $data['specialty'],
+            $id
+        ]);
+    }
 }

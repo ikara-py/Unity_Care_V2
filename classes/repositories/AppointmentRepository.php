@@ -27,9 +27,14 @@ class AppointmentRepository extends BaseRepository {
     }
     public function findByDoctor($doctorId) {
         $stmt = $this->pdo->prepare("
-            SELECT appointments.*, User.first_name as patient_first_name, User.last_name as patient_last_name
+            SELECT appointments.*, 
+                   doctor_user.first_name as doctor_first_name, 
+                   doctor_user.last_name as doctor_last_name,
+                   patient_user.first_name as patient_first_name, 
+                   patient_user.last_name as patient_last_name
             FROM appointments
-            INNER JOIN User ON appointments.patient_id = User.id
+            INNER JOIN User as doctor_user ON appointments.doctor_id = doctor_user.id
+            INNER JOIN User as patient_user ON appointments.patient_id = patient_user.id
             WHERE appointments.doctor_id = ?
             ORDER BY appointments.appointment_date DESC, appointments.appointment_time DESC
         ");
@@ -38,9 +43,10 @@ class AppointmentRepository extends BaseRepository {
     }
     public function findByPatient($patientId) {
         $stmt = $this->pdo->prepare("
-            SELECT appointments.*, User.first_name as doctor_first_name, User.last_name as doctor_last_name
+            SELECT appointments.*, doctor_user.first_name as doctor_first_name, doctor_user.last_name as doctor_last_name,patient_user.first_name as patient_first_name, patient_user.last_name as patient_last_name
             FROM appointments
-            INNER JOIN User ON appointments.doctor_id = User.id
+            INNER JOIN User as doctor_user ON appointments.doctor_id = doctor_user.id
+            INNER JOIN User as patient_user ON appointments.patient_id = patient_user.id
             WHERE appointments.patient_id = ?
             ORDER BY appointments.appointment_date DESC, appointments.appointment_time DESC
         ");

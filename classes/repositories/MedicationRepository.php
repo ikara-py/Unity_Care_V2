@@ -4,8 +4,12 @@ class MedicationRepository extends BaseRepository {
     protected function getTableName() {
         return 'medications';
     }
+    public function findAll() {
+        $stmt = $this->pdo->query("SELECT * FROM medications ORDER BY name");
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
     public function findByName($name) {
-        $stmt = $this->pdo->prepare(" SELECT id, name, description FROM medications WHERE name = ? ");
+        $stmt = $this->pdo->prepare("SELECT id, name, description FROM medications WHERE name = ? ");
         $stmt->execute([$name]);
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
@@ -14,7 +18,7 @@ class MedicationRepository extends BaseRepository {
         if ($this->findByName($data['name'])) {
             return false;
         }
-        $stmt = $this->pdo->prepare(" INSERT INTO medications (name, description) VALUES (?, ?) ");
+        $stmt = $this->pdo->prepare("INSERT INTO medications (name, description) VALUES (?, ?) ");
         return $stmt->execute([
             $data['name'],
             $data['description']

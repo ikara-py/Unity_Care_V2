@@ -5,7 +5,8 @@ class PrescriptionRepository extends BaseRepository {
         return 'prescriptions';
     }
     public function find($id) {
-        $stmt = $this->pdo->prepare(" SELECT prescriptions.*, medications.name as medication_name, medications.description as medication_description, doctor_user.first_name as doctor_first_name, doctor_user.last_name as doctor_last_name, patient_user.first_name as patient_first_name, patient_user.last_name as patient_last_name
+        $stmt = $this->pdo->prepare("
+            SELECT prescriptions.*, medications.name as medication_name, medications.description as medication_description, doctor_user.first_name as doctor_first_name, doctor_user.last_name as doctor_last_name, patient_user.first_name as patient_first_name, patient_user.last_name as patient_last_name
             FROM prescriptions
             INNER JOIN medications ON prescriptions.medication_id = medications.id
             INNER JOIN User as doctor_user ON prescriptions.doctor_id = doctor_user.id
@@ -16,7 +17,8 @@ class PrescriptionRepository extends BaseRepository {
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
     public function findAll() {
-        $stmt = $this->pdo->query(" SELECT prescriptions.*, medications.name as medication_name, medications.description as medication_description, doctor_user.first_name as doctor_first_name, doctor_user.last_name as doctor_last_name, patient_user.first_name as patient_first_name, patient_user.last_name as patient_last_name
+        $stmt = $this->pdo->query("
+            SELECT prescriptions.*, medications.name as medication_name, medications.description as medication_description, doctor_user.first_name as doctor_first_name, doctor_user.last_name as doctor_last_name, patient_user.first_name as patient_first_name, patient_user.last_name as patient_last_name
             FROM prescriptions
             INNER JOIN medications ON prescriptions.medication_id = medications.id
             INNER JOIN User as doctor_user ON prescriptions.doctor_id = doctor_user.id
@@ -26,7 +28,8 @@ class PrescriptionRepository extends BaseRepository {
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
     public function findByDoctor($doctorId) {
-        $stmt = $this->pdo->prepare(" SELECT prescriptions.*, medications.name as medication_name, medications.description as medication_description, doctor_user.first_name as doctor_first_name, doctor_user.last_name as doctor_last_name, patient_user.first_name as patient_first_name, patient_user.last_name as patient_last_name
+        $stmt = $this->pdo->prepare("
+            SELECT prescriptions.*, medications.name as medication_name, medications.description as medication_description, doctor_user.first_name as doctor_first_name, doctor_user.last_name as doctor_last_name, patient_user.first_name as patient_first_name, patient_user.last_name as patient_last_name
             FROM prescriptions
             INNER JOIN medications ON prescriptions.medication_id = medications.id
             INNER JOIN User as doctor_user ON prescriptions.doctor_id = doctor_user.id
@@ -38,10 +41,18 @@ class PrescriptionRepository extends BaseRepository {
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
     public function findByPatient($patientId) {
-        $stmt = $this->pdo->prepare(" SELECT prescriptions.*, medications.name as medication_name, medications.description as medication_description, doctor_user.first_name as doctor_first_name, doctor_user.last_name as doctor_last_name
+        $stmt = $this->pdo->prepare("
+            SELECT prescriptions.*, 
+                   medications.name as medication_name, 
+                   medications.description as medication_description, 
+                   doctor_user.first_name as doctor_first_name, 
+                   doctor_user.last_name as doctor_last_name,
+                   patient_user.first_name as patient_first_name, 
+                   patient_user.last_name as patient_last_name
             FROM prescriptions
             INNER JOIN medications ON prescriptions.medication_id = medications.id
             INNER JOIN User as doctor_user ON prescriptions.doctor_id = doctor_user.id
+            INNER JOIN User as patient_user ON prescriptions.patient_id = patient_user.id
             WHERE prescriptions.patient_id = ?
             ORDER BY prescriptions.created_at DESC
         ");
@@ -50,7 +61,8 @@ class PrescriptionRepository extends BaseRepository {
     }
     public function add(Prescription $prescription) {
         $data = $prescription->toArray();
-        $stmt = $this->pdo->prepare(" INSERT INTO prescriptions (doctor_id, patient_id, medication_id, dosage_instructions) 
+        $stmt = $this->pdo->prepare("
+            INSERT INTO prescriptions (doctor_id, patient_id, medication_id, dosage_instructions) 
             VALUES (?, ?, ?, ?)
         ");
         return $stmt->execute([
@@ -62,7 +74,8 @@ class PrescriptionRepository extends BaseRepository {
     }
     public function edit($id, Prescription $prescription) {
         $data = $prescription->toArray();
-        $stmt = $this->pdo->prepare(" UPDATE prescriptions SET doctor_id = ?, patient_id = ?, medication_id = ?, dosage_instructions = ?
+        $stmt = $this->pdo->prepare("
+            UPDATE prescriptions SET doctor_id = ?, patient_id = ?, medication_id = ?, dosage_instructions = ?
             WHERE id = ?
         ");
         return $stmt->execute([
@@ -74,7 +87,8 @@ class PrescriptionRepository extends BaseRepository {
         ]);
     }
     public function getMedicationStats() {
-        $stmt = $this->pdo->query(" SELECT medications.name as medication_name, COUNT(prescriptions.id) as prescription_count, COUNT(DISTINCT prescriptions.doctor_id) as doctor_count, COUNT(DISTINCT prescriptions.patient_id) as patient_count
+        $stmt = $this->pdo->query("
+            SELECT medications.name as medication_name, COUNT(prescriptions.id) as prescription_count, COUNT(DISTINCT prescriptions.doctor_id) as doctor_count, COUNT(DISTINCT prescriptions.patient_id) as patient_count
             FROM prescriptions
             INNER JOIN medications ON prescriptions.medication_id = medications.id
             GROUP BY medications.id, medications.name
