@@ -76,11 +76,11 @@ CREATE TABLE prescriptions (
 
 
 INSERT INTO User (id, email, first_name, last_name, username, password, role) VALUES
-(1, 'admin@hassan2.ma', 'Youssef', 'Alaoui', 'admin_youssef', 'hashed_pass_1', 'admin'),
-(2, 'meriem.bennani@hassan2.ma', 'Meriem', 'Bennani', 'dr_meriem', 'hashed_pass_2', 'doctor'),
-(3, 'amine.idrissi@hassan2.ma', 'Amine', 'Idrissi', 'dr_amine', 'hashed_pass_3', 'doctor'),
-(4, 'karima.tazi@email.com', 'Karima', 'Tazi', 'ktazi88', 'hashed_pass_4', 'patient'),
-(5, 'omar.haddad@email.com', 'Omar', 'Haddad', 'ohaddad92', 'hashed_pass_5', 'patient');
+(1, 'admin@hassan2.ma', 'Youssef', 'Alaoui', 'admin_youssef', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'admin'),
+(2, 'meriem.bennani@hassan2.ma', 'Meriem', 'Bennani', 'dr_meriem', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'doctor'),
+(3, 'amine.idrissi@hassan2.ma', 'Amine', 'Idrissi', 'dr_amine', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'doctor'),
+(4, 'karima.tazi@email.com', 'Karima', 'Tazi', 'ktazi88', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'patient'),
+(5, 'omar.haddad@email.com', 'Omar', 'Haddad', 'ohaddad92', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'patient');
 
 INSERT INTO departments (name, location) VALUES
 ('Cardiologie', 'Aile A, Casablanca'),
