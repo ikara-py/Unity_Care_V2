@@ -20,6 +20,53 @@ The application must ensure **secure access**, **protection against common web a
 
 ---
 
+## Project Structure
+
+
+├── classes/
+│   ├── models/
+│   │   ├── User.php
+│   │   ├── Admin.php
+│   │   ├── Doctor.php
+│   │   ├── Patient.php
+│   │   ├── Appointment.php
+│   │   ├── Prescription.php
+│   │   ├── Medication.php
+│   │   └── Department.php
+│   └── repositories/
+│       ├── BaseRepository.php
+│       ├── UserRepository.php
+│       ├── PatientRepository.php
+│       ├── DoctorRepository.php
+│       ├── AppointmentRepository.php
+│       ├── PrescriptionRepository.php
+│       ├── MedicationRepository.php
+│       └── DepartmentRepository.php
+├── config/
+│   └── connection.php
+├── includes/
+│   ├── auth.php
+│   ├── functions.php
+│   ├── header.php
+│   └── footer.php
+├── assets/
+│   ├── css/
+│   │   └── style.css
+│   └── js/
+│       └── main.js
+├── index.php
+├── login.php
+├── logout.php
+├── doctors.php
+├── patients.php
+├── appointments.php
+├── prescriptions.php
+├── medications.php
+├── departments.php
+└── profile.php
+
+---
+
 ## Required Features (TODO)
 
 ### 1. Authentication System

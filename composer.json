@@ -1,5 +1,12 @@
 {
-    "require": {
-        "vlucas/phpdotenv": "^5.6"
+  "require": {
+    "vlucas/phpdotenv": "^5.6"
+  },
+  "autoload": {
+    "psr-4": {
+      "App\\models\\": "classes/models/",
+      "App\\repositories\\": "classes/repositories/",
+      "App\\config\\": "config/"
     }
+  }
 }
